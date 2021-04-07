@@ -34,8 +34,11 @@
 - 簇 cù (cluster)
 - 监督学习 (supervised learning) 我们已经有标记。 包括分类学习，回归学习，等。。。
 - 无监督学习 (unsupervised learning) 我们没有标记。 包括聚类学习
-- 
-
+- 泛化 (generalization)　学的模型适用于新样本的能力
+- 分布 （distribution) ![](images/2021-04-06-22-45-07.png)
+  - 独立同分布 （independent and identically distributed [i.i.d])
+- 归纳 （induction)
+- 演绎 (deduction)
 ## 我们怎么表示示例
 
 ![](images/2021-04-05-19-47-23.png)
