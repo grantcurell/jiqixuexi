@@ -10,3 +10,11 @@ Note to self: Remember, $w^T$ is a transpose because $x(t)$ is a row. In order t
 
 # Problem b
 
+![](images/2021-05-13-10-18-04.png)
+Edit: When I said "it" here I meant the equation in the proof.
+
+# Problem c
+
+We know $y=b+w^Tx$
+
+From problem b we know that $w^T(t)x(t)$ is growing with each iteration. Some positive value $y(t)y(t)x(t)x(t)$ is added after each iteration. $y$ is just a sign. In the case that y is positive but $w^T(t)x(t)$ is negative, it is becoming less negative with each iteration. If y is negative and is positive $w^T(t)x(t)$, the fact that it is greater than $y(t)w^T(t)x(t)$ implies that with each iteration $w^T(t)x(t)$ is becoming smaller with each iteration and trending toward negative.
