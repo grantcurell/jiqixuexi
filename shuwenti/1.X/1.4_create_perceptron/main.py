@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
 
-    BIAS_RANGE = 10  # Magic number for controlling the bias of the true function
+    BIAS_RANGE = 0  # Magic number for controlling the bias of the true function
     BOUNDARY_SIZE = 20  # Magic number which represents the maximum size of the ints generated
 
     parser = argparse.ArgumentParser(description=__doc__)
@@ -23,7 +23,10 @@ if __name__ == '__main__':
               np.random.randint(low=BOUNDARY_SIZE*-1, high=BOUNDARY_SIZE, size=args.num_points))
 
     # Create the function f
-    true_bias = np.random.randint(low=BIAS_RANGE*-1, high=BIAS_RANGE)
+    if BIAS_RANGE != 0:
+        true_bias = np.random.randint(low=BIAS_RANGE*-1, high=BIAS_RANGE)
+    else:
+        true_bias = 0
     true_weights = np.random.rand(1), np.random.rand(1)
 
     # Create plot
@@ -38,24 +41,29 @@ if __name__ == '__main__':
         else:
             ax.scatter(x, y, alpha=0.8, c="green", edgecolors='none', s=30)
 
-    plt.plot(true_weights[0], true_weights[1])
-
     # This function draws 100 points between the two indicated ranges
     x = np.linspace(-1*BOUNDARY_SIZE, BOUNDARY_SIZE, 100)
 
     # See this post for how to calculate the line:
     # https://medium.com/@thomascountz/calculate-the-decision-boundary-of-a-single-perceptron-visualizing-linear-separability-c4d77099ef38
     # You first must calculate the x and y intercepts
-    y = (-1 * (true_bias / true_weights[1]) / (true_bias / true_weights[0]))*x + ((-1*true_bias) / true_weights[1])
+    if true_bias != 0:
+        y = (-1 * (true_bias / true_weights[1]) / (true_bias / true_weights[0]))*x \
+            + ((-1 * true_bias) / true_weights[1])
+    else:
+        y = 0*x
     plt.plot(x, y, color="blue", label="f")
 
     all_point_true = False
+    perceptron_start_weights = np.random.rand(1), np.random.rand(1)
 
-    while not all_point_true:
-        print("NIL")
+    #while not all_point_true:
+    #    print("NIL")
 
     plt.title('Perceptron Demonstration')
     plt.xlabel("Weight 1")
     plt.ylabel("Weight 2")
     plt.legend(loc=2)
+    #ax.axhline(y=0, color='k')
+    #ax.axvline(x=0, color='k')
     plt.show()
