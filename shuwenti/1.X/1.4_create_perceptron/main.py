@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
 
-    BIAS_RANGE = 0  # Magic number for controlling the bias of the true function
+    BIAS_RANGE = 10  # Magic number for controlling the bias of the true function
     BOUNDARY_SIZE = 20  # Magic number which represents the maximum size of the ints generated
 
     parser = argparse.ArgumentParser(description=__doc__)
@@ -16,6 +16,7 @@ if __name__ == '__main__':
     parser.add_argument("--bias", "-b", required=False, type=int, default=1,
                         help="The bias to use in the equation y=b+w1+w2. Keep in mind w could be negative. "
                              "The bias must be between -%s and %s" % (BIAS_RANGE, BIAS_RANGE))
+
     args = parser.parse_args()
 
     # Generate the data set
@@ -51,19 +52,31 @@ if __name__ == '__main__':
         y = (-1 * (true_bias / true_weights[1]) / (true_bias / true_weights[0]))*x \
             + ((-1 * true_bias) / true_weights[1])
     else:
-        y = 0*x
+        y = -1*(true_weights[0]*x)/true_weights[1]
     plt.plot(x, y, color="blue", label="f")
 
+    # Create and run our perceptron algorithm
     all_point_true = False
-    perceptron_start_weights = np.random.rand(1), np.random.rand(1)
 
-    #while not all_point_true:
-    #    print("NIL")
+    # The first element here is our starting bias. The other two correspond to the two weights
+    perceptron_start_weights = [np.random.randint(low=BIAS_RANGE*-1, high=BIAS_RANGE),
+                                np.random.rand(1),
+                                np.random.rand(1)]
 
+    while not all_point_true:
+
+        if perceptron_start_weights[0] != 0:
+            y = (-1 * (perceptron_start_weights[0] / perceptron_start_weights[2]) / (perceptron_start_weights[0] /
+                                                                                     perceptron_start_weights[1])) * x \
+                + ((-1 * perceptron_start_weights[0]) / perceptron_start_weights[2])
+        else:
+            y = -1 * (perceptron_start_weights[1] * x) / perceptron_start_weights[2]
+
+    plt.plot(x, y, color="purple", label="Perceptron's Guess")
     plt.title('Perceptron Demonstration')
     plt.xlabel("Weight 1")
     plt.ylabel("Weight 2")
     plt.legend(loc=2)
-    #ax.axhline(y=0, color='k')
-    #ax.axvline(x=0, color='k')
+    ax.axhline(y=0, color='k')
+    ax.axvline(x=0, color='k')
     plt.show()
