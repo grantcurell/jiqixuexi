@@ -19,30 +19,43 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Generate the data set
-    f_data = (np.random.random_integers(low=BOUNDARY_SIZE*-1, high=BOUNDARY_SIZE, size=args.num_points),
-              np.random.random_integers(low=BOUNDARY_SIZE*-1, high=BOUNDARY_SIZE, size=args.num_points))
+    f_data = (np.random.randint(low=BOUNDARY_SIZE*-1, high=BOUNDARY_SIZE, size=args.num_points),
+              np.random.randint(low=BOUNDARY_SIZE*-1, high=BOUNDARY_SIZE, size=args.num_points))
 
     # Create the function f
-    true_bias = np.random.random_integers(low=BIAS_RANGE*-1, high=BIAS_RANGE)
-    true_weights = [np.random.rand(1), np.random.rand(1)]
+    true_bias = np.random.randint(low=BIAS_RANGE*-1, high=BIAS_RANGE)
+    true_weights = np.random.rand(1), np.random.rand(1)
 
     # Create plot
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1, facecolor="1.0")
 
     # Plot the data on the graph
-    for x, y in f_data:
-        print("NUL")
+    for x, y in zip(f_data[0], f_data[1]):
 
+        if true_bias+true_weights[0]*x+true_weights[1]*y < 0:
+            ax.scatter(x, y, alpha=0.8, c="red", edgecolors='none', s=30)
+        else:
+            ax.scatter(x, y, alpha=0.8, c="green", edgecolors='none', s=30)
 
-    ax.scatter(x, y, alpha=0.8, c="blue", edgecolors='none', s=30, label="Data Set")
+    plt.plot(true_weights[0], true_weights[1])
+
+    # This function draws 100 points between the two indicated ranges
+    x = np.linspace(-1*BOUNDARY_SIZE, BOUNDARY_SIZE, 100)
+
+    # See this post for how to calculate the line:
+    # https://medium.com/@thomascountz/calculate-the-decision-boundary-of-a-single-perceptron-visualizing-linear-separability-c4d77099ef38
+    # You first must calculate the x and y intercepts
+    y = (-1 * (true_bias / true_weights[1]) / (true_bias / true_weights[0]))*x + ((-1*true_bias) / true_weights[1])
+    plt.plot(x, y, color="blue", label="f")
 
     all_point_true = False
 
     while not all_point_true:
         print("NIL")
 
-
     plt.title('Perceptron Demonstration')
+    plt.xlabel("Weight 1")
+    plt.ylabel("Weight 2")
     plt.legend(loc=2)
     plt.show()
