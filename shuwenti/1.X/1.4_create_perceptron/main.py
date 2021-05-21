@@ -35,7 +35,10 @@ if __name__ == '__main__':
         true_bias = 0
     true_weights = np.random.rand(1), np.random.rand(1)
 
-    # Create plot
+    x = np.linspace(0, 10*np.pi, 100)
+    y = np.sin(x)
+
+    plt.ion()
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1, facecolor="1.0")
 
@@ -50,6 +53,8 @@ if __name__ == '__main__':
         else:
             ax.scatter(x1, x2, alpha=0.8, c="green", edgecolors='none', s=30)
             data_tags.append(1)
+
+        fig.canvas.draw()
 
     f_data.append(data_tags)
 
@@ -73,6 +78,7 @@ if __name__ == '__main__':
     ax.axhline(y=0, color='k')
     ax.axvline(x=0, color='k')
     plt.title('Perceptron Demonstration')
+    plt.pause(1)
     fig.canvas.draw()
 
     # Create and run our perceptron algorithm
