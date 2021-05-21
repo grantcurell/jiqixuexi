@@ -20,8 +20,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     # Generate the data set
-    f_data = (np.random.randint(low=BOUNDARY_SIZE*-1, high=BOUNDARY_SIZE, size=args.num_points),
-              np.random.randint(low=BOUNDARY_SIZE*-1, high=BOUNDARY_SIZE, size=args.num_points))
+    f_data = [np.random.randint(low=BOUNDARY_SIZE*-1, high=BOUNDARY_SIZE, size=args.num_points),
+              np.random.randint(low=BOUNDARY_SIZE*-1, high=BOUNDARY_SIZE, size=args.num_points)]
 
     # Create the function f
     if BIAS_RANGE != 0:
@@ -34,20 +34,27 @@ if __name__ == '__main__':
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1, facecolor="1.0")
 
-    # Plot the data on the graph
-    for x, y in zip(f_data[0], f_data[1]):
+    data_tags = []  # list of int used to track the data. Either -1 or 1. This is the same as y
 
-        if true_bias+true_weights[0]*x+true_weights[1]*y < 0:
-            ax.scatter(x, y, alpha=0.8, c="red", edgecolors='none', s=30)
+    # Plot the data on the graph
+    for x1, x2 in zip(f_data[0], f_data[1]):
+
+        if true_bias+true_weights[0]*x1+true_weights[1]*x2 < 0:
+            ax.scatter(x1, x2, alpha=0.8, c="red", edgecolors='none', s=30)
+            data_tags.append(-1)
         else:
-            ax.scatter(x, y, alpha=0.8, c="green", edgecolors='none', s=30)
+            ax.scatter(x1, x2, alpha=0.8, c="green", edgecolors='none', s=30)
+            data_tags.append(1)
+
+    f_data.append(data_tags)
 
     # This function draws 100 points between the two indicated ranges
     x = np.linspace(-1*BOUNDARY_SIZE, BOUNDARY_SIZE, 100)
 
     # See this post for how to calculate the line:
     # https://medium.com/@thomascountz/calculate-the-decision-boundary-of-a-single-perceptron-visualizing-linear-separability-c4d77099ef38
-    # You first must calculate the x and y intercepts
+    # You first must calculate the x and y intercepts. Do not confuse the nomenclature here. I used y, but x and y here
+    # really correspond to x1 and x2 data respectively.
     if true_bias != 0:
         y = (-1 * (true_bias / true_weights[1]) / (true_bias / true_weights[0]))*x \
             + ((-1 * true_bias) / true_weights[1])
@@ -59,20 +66,51 @@ if __name__ == '__main__':
     all_point_true = False
 
     # The first element here is our starting bias. The other two correspond to the two weights
-    perceptron_start_weights = [np.random.randint(low=BIAS_RANGE*-1, high=BIAS_RANGE),
-                                np.random.rand(1),
-                                np.random.rand(1)]
+    perceptron_weights = [np.random.randint(low=BIAS_RANGE * -1, high=BIAS_RANGE),
+                          np.random.rand(1),
+                          np.random.rand(1)]
+
+    iterations = 0
 
     while not all_point_true:
 
-        if perceptron_start_weights[0] != 0:
-            y = (-1 * (perceptron_start_weights[0] / perceptron_start_weights[2]) / (perceptron_start_weights[0] /
-                                                                                     perceptron_start_weights[1])) * x \
-                + ((-1 * perceptron_start_weights[0]) / perceptron_start_weights[2])
-        else:
-            y = -1 * (perceptron_start_weights[1] * x) / perceptron_start_weights[2]
+        bad_point = None
 
-    plt.plot(x, y, color="purple", label="Perceptron's Guess")
+        # Find a point which our algorithm guessed incorrectly
+        for x1, x2, y in zip(f_data[0], f_data[1], f_data[2]):
+
+            if perceptron_weights[0] + perceptron_weights[1] * x1 + perceptron_weights[2] * x2 < 0:
+                # TODO - Need to calculate bias here?
+                if y == 1:
+                    bad_point = [x1, x2, y]
+                    break
+            else:
+                if y == -1:
+                    bad_point = [x1, x2, y]
+                    break
+
+        # If no bad point was found exit. This means our algorithm got them all correct!
+        if not bad_point:
+            print("Learning complete! Iterations required was %s" % iterations)
+            break
+
+        iterations = iterations + 1
+        print("Bad point found. Iteration is %s" % iterations)
+        x_t = bad_point[:2]
+        x_t.insert(0, true_bias)
+
+        y_times_x = np.dot(bad_point[2], x_t)
+        perceptron_weights = np.add(y_times_x, perceptron_weights)
+        perceptron_weights[0] = true_bias
+
+    if perceptron_weights[0] != 0:
+        y = (-1 * (perceptron_weights[0] / perceptron_weights[2]) / (perceptron_weights[0] /
+                                                                     perceptron_weights[1])) * x \
+            + ((-1 * perceptron_weights[0]) / perceptron_weights[2])
+    else:
+        y = -1 * (perceptron_weights[1] * x) / perceptron_weights[2]
+
+    plt.plot(x, y, color="purple", label="h")
     plt.title('Perceptron Demonstration')
     plt.xlabel("Weight 1")
     plt.ylabel("Weight 2")
