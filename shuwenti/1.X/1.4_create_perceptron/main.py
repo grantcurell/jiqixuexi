@@ -1,8 +1,13 @@
+import copy
+
 import numpy as np
 import argparse
 import matplotlib.pyplot as plt
 
+
 if __name__ == '__main__':
+
+    plt.ion()
 
     BIAS_RANGE = 10  # Magic number for controlling the bias of the true function
     BOUNDARY_SIZE = 20  # Magic number which represents the maximum size of the ints generated
@@ -60,7 +65,15 @@ if __name__ == '__main__':
             + ((-1 * true_bias) / true_weights[1])
     else:
         y = -1*(true_weights[0]*x)/true_weights[1]
+
     plt.plot(x, y, color="blue", label="f")
+    plt.xlabel("Weight 1")
+    plt.ylabel("Weight 2")
+    plt.legend(loc=2)
+    ax.axhline(y=0, color='k')
+    ax.axvline(x=0, color='k')
+    plt.title('Perceptron Demonstration')
+    fig.canvas.draw()
 
     # Create and run our perceptron algorithm
     all_point_true = False
@@ -103,18 +116,18 @@ if __name__ == '__main__':
         perceptron_weights = np.add(y_times_x, perceptron_weights)
         perceptron_weights[0] = true_bias
 
-    if perceptron_weights[0] != 0:
-        y = (-1 * (perceptron_weights[0] / perceptron_weights[2]) / (perceptron_weights[0] /
-                                                                     perceptron_weights[1])) * x \
-            + ((-1 * perceptron_weights[0]) / perceptron_weights[2])
-    else:
-        y = -1 * (perceptron_weights[1] * x) / perceptron_weights[2]
+        if perceptron_weights[0] != 0:
+            y = (-1 * (perceptron_weights[0] / perceptron_weights[2]) / (perceptron_weights[0] /
+                                                                         perceptron_weights[1])) * x \
+                + ((-1 * perceptron_weights[0]) / perceptron_weights[2])
+        else:
+            y = -1 * (perceptron_weights[1] * x) / perceptron_weights[2]
 
-    plt.plot(x, y, color="purple", label="h")
-    plt.title('Perceptron Demonstration')
-    plt.xlabel("Weight 1")
-    plt.ylabel("Weight 2")
-    plt.legend(loc=2)
-    ax.axhline(y=0, color='k')
-    ax.axvline(x=0, color='k')
-    plt.show()
+        plt.plot(x, y, color="purple", label="h")
+        plt.draw()
+        plt.show()
+
+
+
+
+
