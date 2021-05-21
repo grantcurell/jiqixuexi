@@ -71,8 +71,6 @@ if __name__ == '__main__':
     ax.axhline(y=0, color='k')
     ax.axvline(x=0, color='k')
     plt.title('Perceptron Demonstration')
-    plt.pause(.05)
-    fig.canvas.draw()
 
     # Create and run our perceptron algorithm
     all_point_true = False
@@ -92,7 +90,6 @@ if __name__ == '__main__':
         for x1, x2, y_perceptron in zip(f_data[0], f_data[1], f_data[2]):
 
             if perceptron_weights[0] + perceptron_weights[1] * x1 + perceptron_weights[2] * x2 < 0:
-                # TODO - Need to calculate bias here?
                 if y_perceptron == 1:
                     bad_point = [x1, x2, y_perceptron]
                     break
@@ -109,11 +106,10 @@ if __name__ == '__main__':
         iterations = iterations + 1
         print("Bad point found. Iteration is %s" % iterations)
         x_t = bad_point[:2]
-        x_t.insert(0, true_bias)
+        x_t.insert(0, 1)
 
         y_times_x = np.dot(bad_point[2], x_t)
         perceptron_weights = np.add(y_times_x, perceptron_weights)
-        perceptron_weights[0] = true_bias
 
         if perceptron_weights[0] == 0:
             y_perceptron = -1 * (perceptron_weights[1] * x) / perceptron_weights[2]
@@ -122,7 +118,7 @@ if __name__ == '__main__':
                                                                                     perceptron_weights[1])) * x \
                            + ((-1 * perceptron_weights[0]) / perceptron_weights[2])
 
-    perceptron_line, = ax.plot(x, y_perceptron, color="purple", label="h")
-    perceptron_line.set_ydata(y_perceptron)
-    plt.pause(1)
-    fig.canvas.draw()
+        perceptron_line, = ax.plot(x, y_perceptron, color="purple", label="h")
+        perceptron_line.set_ydata(y_perceptron)
+        plt.pause(1)
+        fig.canvas.draw()
