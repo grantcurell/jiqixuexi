@@ -60,10 +60,9 @@ if __name__ == '__main__':
     # You first must calculate the x and y intercepts. Do not confuse the nomenclature here. I used y, but x and y here
     # really correspond to x1 and x2 data respectively.
     if true_bias != 0:
-        y = (-1 * (true_bias / true_weights[1]) / (true_bias / true_weights[0])) * x \
-            + ((-1 * true_bias) / true_weights[1])
+        y = -(x*true_weights[0]/true_weights[1])-true_bias/true_weights[1]
     else:
-        y = -1 * (true_weights[0] * x) / true_weights[1]
+        y = -(x*true_weights[0]/true_weights[1])
 
     true_f, = ax.plot(x, y, color="blue", label="f")
     true_f.set_ydata(y)
@@ -122,11 +121,10 @@ if __name__ == '__main__':
         # This is the same as w(t + 1) = w(t) + y(t)x(t)
         perceptron_weights = np.add(np.dot(bad_point[2], x_t), perceptron_weights)
 
-        if perceptron_weights[0] == 0:
-            y_perceptron = (-1 * (perceptron_weights[0] / perceptron_weights[2]) / (perceptron_weights[0] / perceptron_weights[1])) * x \
-                + ((-1 * perceptron_weights[0]) / perceptron_weights[2])
+        if true_bias != 0: # TODO - confirmed the values of perceptron_weights are updating correctly. There's something else going on.
+            y_perceptron = -(x * perceptron_weights[1] / perceptron_weights[2]) - perceptron_weights[0] / perceptron_weights[2]
         else:
-            y_perceptron = -1 * (perceptron_weights[1] * x) / perceptron_weights[2]
+            y_perceptron = -(x * perceptron_weights[1] / perceptron_weights[2])
 
         perceptron_line, = ax.plot(x, y_perceptron, color="purple", label="h")
         perceptron_line.set_ydata(y_perceptron)
