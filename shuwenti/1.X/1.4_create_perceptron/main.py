@@ -16,6 +16,8 @@ if __name__ == '__main__':
     parser.add_argument("--bias", "-b", required=False, type=int, default=1,
                         help="The bias to use in the equation y=b+w1+w2. Keep in mind w could be negative. "
                              "The bias must be between -%s and %s" % (BIAS_RANGE, BIAS_RANGE))
+    parser.add_argument("--pause-length", "-p", required=False, type=int, default=3,
+                        help="How long to pause and show the graph between iterations of the perceptron.")
 
     args = parser.parse_args()
 
@@ -76,7 +78,13 @@ if __name__ == '__main__':
     all_point_true = False
 
     # The first element here is our starting bias. The other two correspond to the two weights
-    perceptron_weights = [np.random.randint(low=BIAS_RANGE * -1, high=BIAS_RANGE),
+
+    if BIAS_RANGE != 0:
+        bias = np.random.randint(low=BIAS_RANGE * -1, high=BIAS_RANGE)
+    else:
+        bias = 0
+
+    perceptron_weights = [bias,
                           np.random.rand(1),
                           np.random.rand(1)]
 
@@ -87,6 +95,9 @@ if __name__ == '__main__':
         bad_point = None
 
         # Find a point which our algorithm guessed incorrectly
+        # f_data[0] = x1
+        # f_data[1] = x2
+        # f_data[2] = A tag for classifying the data. Will be either 1 or -1
         for x1, x2, y_perceptron in zip(f_data[0], f_data[1], f_data[2]):
 
             if perceptron_weights[0] + perceptron_weights[1] * x1 + perceptron_weights[2] * x2 < 0:
@@ -108,17 +119,16 @@ if __name__ == '__main__':
         x_t = bad_point[:2]
         x_t.insert(0, 1)
 
-        y_times_x = np.dot(bad_point[2], x_t)
-        perceptron_weights = np.add(y_times_x, perceptron_weights)
+        # This is the same as w(t + 1) = w(t) + y(t)x(t)
+        perceptron_weights = np.add(np.dot(bad_point[2], x_t), perceptron_weights)
 
         if perceptron_weights[0] == 0:
-            y_perceptron = -1 * (perceptron_weights[1] * x) / perceptron_weights[2]
+            y_perceptron = (-1 * (perceptron_weights[0] / perceptron_weights[2]) / (perceptron_weights[0] / perceptron_weights[1])) * x \
+                + ((-1 * perceptron_weights[0]) / perceptron_weights[2])
         else:
-            y_perceptron = (-1 * (perceptron_weights[0] / perceptron_weights[2]) / (perceptron_weights[0] /
-                                                                                    perceptron_weights[1])) * x \
-                           + ((-1 * perceptron_weights[0]) / perceptron_weights[2])
+            y_perceptron = -1 * (perceptron_weights[1] * x) / perceptron_weights[2]
 
         perceptron_line, = ax.plot(x, y_perceptron, color="purple", label="h")
         perceptron_line.set_ydata(y_perceptron)
-        plt.pause(1)
+        plt.pause(args.pause_length)
         fig.canvas.draw()
