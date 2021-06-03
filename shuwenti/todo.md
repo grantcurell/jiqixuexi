@@ -1,0 +1,2 @@
+- Problem 1.2b - I should improve this
+- Problem 1.3 - Why? How would they know to do that? Like what made someone think of that sequence of events?
