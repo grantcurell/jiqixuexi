@@ -1,3 +1,4 @@
 - Problem 1.2b - I should improve this
 - Missing problem 1.4 and problem 1.5
 - It's not clear to me why in the perceptron proof $\theta^{k}=0$
+- Problem 1.07b I don't know why the bound is $4e^{-12\epsilon^2}$
