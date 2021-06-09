@@ -1,2 +1,3 @@
 - Problem 1.2b - I should improve this
-- Problem 1.3 - Why? How would they know to do that? Like what made someone think of that sequence of events?
+- Missing problem 1.4 and problem 1.5
+- It's not clear to me why in the perceptron proof $\theta^{k}=0$
