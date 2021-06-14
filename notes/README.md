@@ -118,7 +118,7 @@ This makes intuitive sense. If you flip a coin, the expectation should be 1/2 bu
 
 ### Standardize
 
-$\mathbb{Z_n}=\dfrac{S_n-\dfrac{n}{2}}{\dfrac{\sqrt(n)}{2}}$
+$Z_n=\dfrac{S_n-\dfrac{n}{2}}{\dfrac{\sqrt(n)}{2}}$
 
 Multiply top and bottom by 2 and factor out $1/\sqrt(n)$
 
