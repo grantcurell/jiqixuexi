@@ -12,6 +12,10 @@
     - [Standardize](#standardize)
   - [Central Limit Theorem Stated](#central-limit-theorem-stated)
 - [Fundamental Theorem of Algebra](#fundamental-theorem-of-algebra)
+- [Population](#population)
+- [Sample](#sample)
+- [Variance](#variance)
+  - [Population vs Sample Variance](#population-vs-sample-variance)
 
 # Asymptotic
 
@@ -55,11 +59,11 @@ distributed means that they come from the same probability distribution. The var
 $Pr[x_i=0]=1-p=q$ probability. You could say each $X_i$ is a bernoulli random variable with probability of success $p$.
 Let $S_n=X_1+X_2+...+X_n$.
 
-## Required Understanding of Variance
+## Required Understanding of [Variance](#variance)
 
 We want to understand the expectation/mean. $E[S_n]=np=E[X_1]+...+E[X_n]$. We know this from the rule *linearity of
 expectation* which says the expectation of a sum is equal to the sum of the expectations. Each of the random variables
-has expectation $p$ beacuse the probabilyt of $X_i=1$ we defined as $p$.
+has expectation $p$ beacuse the probability of $X_i=1$ we defined as $p$.
 
 $Var[S_n]=npq=np(1-p)$
 Remember the variance is $Var[Y]=E[(Y-\mu)^2]$ where $\mu=E[Y]$. Which is all equal to $E[Y^2]-E[Y]^2$. You also need
@@ -142,7 +146,26 @@ C.L.T Let $X_1, X_2, ...$ be i.i.d random variables that have a mean and a non-z
 
 This theorem by itself is not useful in computer science because it does not give any information about the rate of the error. Furthermore this rate  could actually depend on $u$ which is problamatic. To add bounds see the Berry-Esseen Theorem.
 
-
 # Fundamental Theorem of Algebra
 
 Every polynomial eg. $x^n+ax^n-1+a_n=0$ has $n$ roots if $x \in \mathbb{C}$. The quadratic formula answers $ax^2+bx+c=0$ for $x$. The power, two here, is the number of roots."
+
+# Population
+
+The population is the population under study in statistics. Ex: The height of a man. This implies all men who exist or have ever existed.
+
+# Sample
+
+In contrast to the [population](#population), the sample comes from the population. Maybe you survey randomly a bunch of men about their height.
+
+# Variance
+
+$var(x)=E[(X-\mu)^2]=\sigma$
+
+The variance is the expected value of the squared variation of a random variable from its mean value. It estimates how far a set of random numbers are spread out from the mean value. Variance is represented using one of the following three notations: $\sigma^2, s^2, Var(x)$. The higher the variance the more the data is spread out from the mean. The formula in words is the variance is the expectation of the squared deviation of a random set of data from its mean value. It is worth noting the expected value is the same as $\mu$. $\hat{x}=\mu=E[x]$
+
+## Population vs Sample Variance
+
+Real-world observations such as yesterday's rain cannot typically be complete sets of observations. Subsequently we calculate variance based on samples which are incomplete. To make this calculation we use an *estimator* equation based on the sample data which must be drawn without observational bias from the whole population. The simplest estimators for population mean and variance are the mean and the variance of the sample. They are *consistent estimators* which means they converge to the correct values as the number of samples increases. Sample variance is computed by the average of the squared deviation from the sample mean, diveded by $N$. See [Population variance and sample variance](https://en.wikipedia.org/wiki/Variance#Population_variance_and_sample_variance)
+
+Also see my notes on [Required Understanding of Variance](#required-understanding-of-variance)
