@@ -65,11 +65,18 @@ We want to understand the expectation/mean. $E[S_n]=np=E[X_1]+...+E[X_n]$. We kn
 expectation* which says the expectation of a sum is equal to the sum of the expectations. Each of the random variables
 has expectation $p$ beacuse the probability of $X_i=1$ we defined as $p$.
 
-$Var[S_n]=npq=np(1-p)$
-Remember the variance is $Var[Y]=E[(Y-\mu)^2]$ where $\mu=E[Y]$. Which is all equal to $E[Y^2]-E[Y]^2$. You also need
-this rule: $Var[Y+Y']=Var[Y]+Var[Y']$ where $Y,Y'$ are iid.
+In our problem $Var[S_n]=npq=np(1-p)$. We explain why below.
 
-This means the sum S_n is the sum of the independent variances $E[Y^2]-E[Y]^2 -> Var[X_i]=p-p^2=p(1-p)=pq$.
+Remember the variance is <br>
+$Var[Y]=E[(Y-\mu)^2]$ where $\mu=E[Y]$ <br>
+=$E[Y^2]-E[Y]^2$ <br>
+$Var[Y+Y']=Var[Y]+Var[Y']$ where $Y,Y'$ are iid.
+
+This means the sum $S_n$ is the sum of the independent variances ($X_i$). We can use the rule $E[Y^2]-E[Y]^2$ to calculate the variance of an $X_i$. In our case $X_i$ has the property that $X_i^2$ is only either 1 or zero so $E[Y^2]$ is just 1 with probability $p$ and we know its expectation is only $p$ so we get $p-p^2$. Factor out the $p$ and you get $p(1-p)$ which we know is the same as $pq$.
+
+ $Var[X_i]=p-p^2=p(1-p)=pq$.
+
+ You can now use the equation $Var[Y+Y']=Var[Y]+Var[Y']$. Since each $X_i$ has variance $pq$ then the variance of $S_n$ is simply $npq$.
 
 ### Constants in Variance
 
@@ -77,7 +84,7 @@ $Var[Y+c]=Var[Y]$. A constant is just a value that is independent of everything 
 the value of the variance.
 
 $Var[cY] = c^2Var[Y]$ <br>
-$stddev[Y]=\sqrt(Var[Y])$
+$\sigma=stddev[Y]=\sqrt(Var[Y])$
 
 We frequently work with standard deviation because the units are more intuitive. You could use the variance but consider
 that variance is $\sigma^2$ which means our units would be squared. We square everything to make sure it is positive.
@@ -93,20 +100,24 @@ arrange for that by performing some operations which we call standardizing the v
 ### Get Mean 0
 
 $S_n-np$ Remember $np=E[S_n]$ which is the same as the mean. That is to say, to get $S_n=0$ you subtract the mean from
-it. This operation is sometimes called *centering*
+it. This operation is sometimes called [*centering*](https://www.theanalysisfactor.com/center-on-the-mean/). You subtract a constant (here the mean) from every value of the variable in the set. You can see the effect with the dice:
+
+![](images/2021-06-15-10-30-33.png)
+
+This *does not* affect the variance which you can see from the rule $Var[Y+c]=Var[Y]$.
 
 ### Get var 1
 
-**TODO**: I don't really understand why these tricks work.
-
 Multiply $1/stddev$. Remember the stddev is the square root of the variance. So you get
-$np=\dfrac{S_n-np}{\sqrt(npq)}=\sigma$. That makes a random variable with mean 0 and variance 1 and therefore standard
+$np=\dfrac{S_n-np}{\sqrt(npq)}$ where $\sqrt(npq)=\sigma$. That makes a random variable with mean 0 and variance 1 and therefore standard
  deviation 1.
 
 In general if you have any random variable you could define the standardized version as
 $Z=\dfrac{S-\mu}{\sigma}$ where $\mu$ is the mean and $\sigma$ is the standard deviation of $S$.
 
-$Pr[S\le\mu]=Pr[\mu+\sigma Z\le u]=Pr[Z\le\dfrac{u-\mu}{\sigma}]$
+**TODO** what does S mean here.
+
+$Pr[S\le u]=Pr[\mu+\sigma Z\le u]=Pr[Z\le\dfrac{u-\mu}{\sigma}]$
 
 If you understand the distribution of $S$ then you also understand the distribution of $Z$ and vice versa.
 
@@ -131,14 +142,14 @@ Multiply top and bottom by 2 and factor out $1/\sqrt(n)$
 Notice, because the probability of $X_n$ being 1 is 1/2, in the equation $\dfrac{1}{\sqrt(n)}(2X_1-1+2X_2-1+...+2X_n-1)$
 the terms $2X_1-1+2X_2-1$ are each half the time -1 or +1 because the value of $X$ is either 0 or 1. These are called *Radamacher Random Variables*.
 
-$Pr[S_n=\dfrac{n}{2}]=Pr[Z_n=0] \asymp \sqrt(\dfrac{2}{\pi})*\dfrac{1}{\sqrt(n)}$
-where $\asymp$ means asymptotic to.
+Assuming $n$ is even: $Pr[S_n=\dfrac{n}{2}]=Pr[Z_n=0] \asymp \sqrt(\dfrac{2}{\pi})*\dfrac{1}{\sqrt(n)}$
+where $\asymp$ means asymptotic to and Sterling's Formula is how $\sqrt(\dfrac{2}{\pi})*\dfrac{1}{\sqrt(n)}$ was derived. **TODO: What is that*?* It is Pr[Z_n=0] because remember while the mean of $S_n$ is $n/2$ the mean of $Z_n$ has been standardized such that its mean is 0.
 
 Histogram of $Z_n$'s probabilities as $n$ becomes increasingly large:
 
 ![](images/2021-06-14-17-29-22.png)
 
-$\dfrac{2}{\sqrt(n)}$ is the width of a single bar.
+$\dfrac{2}{\sqrt(n)}$ is the width of a single bar. **TODO** Why are the maximum possible values of $Z_n$ $\sqrt(n)$ and $-\sqrt(n)$? See [video](https://youtu.be/r9S2fMQiP2E?t=1141)
 
 ## Central Limit Theorem Stated
 
