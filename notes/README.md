@@ -14,6 +14,7 @@
 - [Corollary](#corollary)
 - [Fundamental Theorem of Algebra](#fundamental-theorem-of-algebra)
 - [Gaussian Random Variable](#gaussian-random-variable)
+      - [Gaussian Corollary 1:](#gaussian-corollary-1)
 - [Population](#population)
 - [Probability Distributions](#probability-distributions)
   - [Discrete Probability Distribution](#discrete-probability-distribution)
@@ -204,7 +205,25 @@ pdf of $\vec{z}$ at $\vec{z}=(z_1,...,z_d)$ because the components are independe
 
 $\phi(z_1) \phi(z_2) \phi(z_3) ...\phi(z_d)=\dfrac{1}{\sqrt(2\pi)}e^{-((z_1)^2+...+(z_d)^2)/2}$
 
-Notice the exponents add so you get $(z_1)^2, (z_2)^2, (z_3)^2, etc.$ What is important is to notice that $(z_1)^2+...+(z_d)^2$ is the same as $\lVert \vec{z}^2 \rVert$. You can see that the PDF of this random variable, the amount of probability that it puts near the point little z, only depends on $z$, the vector.
+Notice the exponents add so you get $(z_1)^2, (z_2)^2, (z_3)^2, etc.$ What is important is to notice that $(z_1)^2+...+(z_d)^2$ is the same as $\lVert \vec{z}^2 \rVert$. You can see that the PDF of this random variable, the amount of probability that it puts near the point little z, only depends on $z$, the vector length not the angle that it is.
+
+#### Gaussian Corollary 1:
+
+You use this fact (the length) to prove the following:
+
+$\int_{\infin}^{\infin} e^{-z^2/2}dz=\sqrt(2\pi)$
+
+Let's look at with $d$ being 2. Let $f(z_1,z_2)=e^{-(z_1)^2+(Z_2)^2/2}$
+
+3D drawing:
+
+![](images/2021-06-15-16-22-33.png)
+
+$\int_{\infin}^{\infin} e^{-z^2/2}dz=$ area under the surface shown above
+
+To get the area under the surface you would do the double integral of the f shown above $\int\int d(z_1,z_2)dz_1 dz_2$ Then he handwaves a bunch "undo this multiplication and the parts come out" **TODO** How? and then you get the square of [the original integral](#gaussian-corollary-1)
+
+
 
 # Population
 
