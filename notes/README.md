@@ -15,6 +15,10 @@
 - [Fundamental Theorem of Algebra](#fundamental-theorem-of-algebra)
 - [Gaussian Random Variable](#gaussian-random-variable)
       - [Gaussian Corollary 1:](#gaussian-corollary-1)
+      - [Gaussian Corollary 2:](#gaussian-corollary-2)
+- [Law of Large Numbers](#law-of-large-numbers)
+  - [Law of Large Numbers - A Note on Notation](#law-of-large-numbers---a-note-on-notation)
+  - [Example](#example)
 - [Population](#population)
 - [Probability Distributions](#probability-distributions)
   - [Discrete Probability Distribution](#discrete-probability-distribution)
@@ -22,6 +26,7 @@
   - [Joint Probability Distribution](#joint-probability-distribution)
     - [Joint Probability Mass Function](#joint-probability-mass-function)
 - [Sample](#sample)
+- [Statistics Notation](#statistics-notation)
 - [Variance](#variance)
   - [Population vs Sample Variance](#population-vs-sample-variance)
 
@@ -84,7 +89,7 @@ This means the sum $S_n$ is the sum of the independent variances ($X_i$). We can
 
  $Var[X_i]=p-p^2=p(1-p)=pq$.
 
- You can now use the equation $Var[Y+Y']=Var[Y]+Var[Y']$. Since each $X_i$ has variance $pq$ then the variance of $S_n$ is simply $npq$.
+ You can now use the equation $Var[Y+Y']=Var[Y]+Var[Y']$. Since each $X_i$ has variance $pq$ then the variance of $S_n$ is simply $npq$ because each $X_i$ is $pq$ and there are $n$ of them.
 
 ### Constants in Variance
 
@@ -151,7 +156,7 @@ Notice, because the probability of $X_n$ being 1 is 1/2, in the equation $\dfrac
 the terms $2X_1-1+2X_2-1$ are each half the time -1 or +1 because the value of $X$ is either 0 or 1. These are called *Radamacher Random Variables*.
 
 Assuming $n$ is even: $Pr[S_n=\dfrac{n}{2}]=Pr[Z_n=0] \asymp \sqrt(\dfrac{2}{\pi})*\dfrac{1}{\sqrt(n)}$
-where $\asymp$ means asymptotic to and Sterling's Formula is how $\sqrt(\dfrac{2}{\pi})*\dfrac{1}{\sqrt(n)}$ was derived. **TODO: What is that*?* It is Pr[Z_n=0] because remember while the mean of $S_n$ is $n/2$ the mean of $Z_n$ has been standardized such that its mean is 0.
+where $\asymp$ means asymptotic to and Sterling's Formula is how $\sqrt(\dfrac{2}{\pi})*\dfrac{1}{\sqrt(n)}$ was derived. **TODO: What is that*?* It is $Pr[Z_n=0]$ because remember while the mean of $S_n$ is $n/2$ the mean of $Z_n$ has been standardized such that its mean is 0.
 
 Histogram of $Z_n$'s probabilities as $n$ becomes increasingly large:
 
@@ -223,7 +228,38 @@ $\int_{\infin}^{\infin} e^{-z^2/2}dz=$ area under the surface shown above
 
 To get the area under the surface you would do the double integral of the f shown above $\int\int d(z_1,z_2)dz_1 dz_2$ Then he handwaves a bunch "undo this multiplication and the parts come out" **TODO** How? and then you get the square of [the original integral](#gaussian-corollary-1)
 
+He basically handwaves the rest of this proof. **TODO** Understand the proof for why the answer here is $2\pi$. See [the video](https://youtu.be/hRqhf1edVIo?t=1207)
 
+![](images/2021-06-15-21-17-57.png)
+
+#### Gaussian Corollary 2:
+
+The sum of independent Gaussians is Gaussian.
+
+This may seem counterintuitive because if you add two Gaussians you would get a variance of 2 but there is a more general form of a Gaussian which is shifted but still displays the bell shaped Gaussian PDF.
+
+# Law of Large Numbers
+
+[Kahn Academy Lecture](https://www.youtube.com/watch?v=VpuN8vCQ--M)
+
+Given a random variable $x$ with expected value (population mean) $E(x)$ the law of large numbers says if we were to take a sample of $n$ observations of our random variable and we were to average all those observations written as:
+
+$\bar{X}_n=\dfrac{x_1+x_2+...+x_n}{n}$
+
+where $\bar{X}_n$ is the mean of $n$ observations of our random variable and each $x$ is an instance of the experiment. $\dfrac{x_1+x_2+...+x_n}{n}$ is called the *sample mean*.
+
+The law of large numbers says that $\lim\limits_{n \to \infty} \bar{X_n}=E(X)$
+
+## Law of Large Numbers - A Note on Notation
+
+$\bar{X}$ indicates the sample mean whereas $\mu$ typically indicates the population mean. See [this video](https://youtu.be/Mb9BuEkbaHQ?t=116).
+
+Also see [Statistics Notation](#statistics-notation)
+## Example
+
+$X=$ # of heads after 100 tosses of a fair coin. $E(X)=100*.5=50$.
+
+$\bar{X_n}=\dfrac{55+65+45+...+n}{n}$ the law of large numbers says $\bar{X_n} \rightarrow 50$ as $n \rightarrow \infin$
 
 # Population
 
@@ -293,6 +329,19 @@ You can't write out all the possibilities because they are infinite BUT you can 
 # Sample
 
 In contrast to the [population](#population), the sample comes from the population. Maybe you survey randomly a bunch of men about their height.
+
+# Statistics Notation
+
+| Statistic |            | Parameter  |
+|-----------|------------|------------|
+| Sample    |            | Population |
+| $\bar{X}$ | mean       | $\mu$      |
+| $s$       | stdev      | $\sigma$   |
+| $s^2$     | variance   | $sigma^2$  |
+| $\hat{p}$ | proportion | p          |
+| $n$       | size       | $N$        |
+
+$n$ - little $n$ indicates the number of samples taken whereas $N$ indicates the total population size.
 
 # Variance
 
