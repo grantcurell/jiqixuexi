@@ -1,4 +1,6 @@
 - [Asymptotic](#asymptotic)
+  - [Graphically](#graphically)
+- [Closed vs Open Set](#closed-vs-open-set)
 - [Central Limit Theorem](#central-limit-theorem)
   - [Idea](#idea)
   - [Intuition](#intuition)
@@ -27,15 +29,38 @@
     - [Joint Probability Mass Function](#joint-probability-mass-function)
 - [Sample](#sample)
 - [Statistics Notation](#statistics-notation)
+  - [Lower vs Upper Case Variables](#lower-vs-upper-case-variables)
 - [Variance](#variance)
   - [Population vs Sample Variance](#population-vs-sample-variance)
+- [What is a Probability Space](#what-is-a-probability-space)
+  - [Sample Space](#sample-space)
+    - [Finite Sample Space](#finite-sample-space)
+    - [Uncountably Infinite Sample Space](#uncountably-infinite-sample-space)
+  - [Event Space](#event-space)
+  - [Probability Measure](#probability-measure)
+    - [Discrete Sample Space](#discrete-sample-space)
+    - [Continuous Sample Space](#continuous-sample-space)
+    - [Power Set](#power-set)
+  - [Random Variable](#random-variable)
+- [What is a Random Variable](#what-is-a-random-variable)
 
 # Asymptotic
+
+1. of or relating to an asymptote.
+2. (of a function) approaching a given value as an expression containing a variable tends to infinity.
+3. (of two functions) so defined that their ratio approaches unity as the independent variable approaches a limit or infinity.
+4. (of a formula) becoming increasingly exact as a variable approaches a limit, usually infinity.
+5. coming into consideration as a variable approaches a limit, usually infinity:
+
+## Graphically
 
 A line whose distance to a given curve tends to zero. An asymptote may or may not intersect its associated curve.
 
 ![](images/2021-06-14-17-16-35.png)
 
+# Closed vs [Open Set](https://en.wikipedia.org/wiki/Open_set)
+
+![](images/2021-06-16-11-20-20.png)
 # Central Limit Theorem
 
 [Central Limit Theorem Lecture](https://www.youtube.com/watch?v=r9S2fMQiP2E&list=PLm3J0oaFux3ZYpFLwwrlv_EHH9wtH6pnX&index=11)
@@ -343,6 +368,12 @@ In contrast to the [population](#population), the sample comes from the populati
 
 $n$ - little $n$ indicates the number of samples taken whereas $N$ indicates the total population size.
 
+## Lower vs Upper Case Variables
+
+[See this link](https://stattrek.com/statistics/notation.aspx)
+
+![](images/2021-06-16-10-31-15.png)
+
 # Variance
 
 $var(x)=E[(X-\mu)^2]=\sigma$
@@ -354,3 +385,80 @@ The variance is the expected value of the squared variation of a random variable
 Real-world observations such as yesterday's rain cannot typically be complete sets of observations. Subsequently we calculate variance based on samples which are incomplete. To make this calculation we use an *estimator* equation based on the sample data which must be drawn without observational bias from the whole population. The simplest estimators for population mean and variance are the mean and the variance of the sample. They are *consistent estimators* which means they converge to the correct values as the number of samples increases. Sample variance is computed by the average of the squared deviation from the sample mean, diveded by $N$. See [Population variance and sample variance](https://en.wikipedia.org/wiki/Variance#Population_variance_and_sample_variance)
 
 Also see my notes on [Required Understanding of Variance](#required-understanding-of-variance)
+
+# What is a Probability Space
+
+These are also called probability triples
+
+There are three pieces to a probability space:
+
+1. Sample space $\Omega$: all things that can happen
+   1. Could be finite or infinite and when it's infinite it could be countable or uncountable
+2. Event Space $\mathcal{A}$: all possible sets of things (events) that can happen
+   1. This is a set of sets from the sample space $\Omega$
+3. Probability measure $P(.)$: function from events to [0,1]
+   1. This is a function that takes members of the event space $\mathcal{A}$ and turns them into numbers between 0 and 1.
+
+## Sample Space
+
+### Finite Sample Space
+
+![](images/2021-06-16-10-50-05.png)
+
+### Uncountably Infinite Sample Space
+
+![](images/2021-06-16-10-51-05.png)
+
+## Event Space
+
+It is a set of subsets of $\Omega$
+
+Requirements for an event space ($\sigma$-algebra [not currently important]) from $\Omega$:
+- Contains both empty set $\emptyset$ and $\Omega$
+- Closed under complement: for all $\alpha \in \mathcal{A}, \alpha^c \in \mathcal{A}$
+- Closed under (countable) union: for all $\alpha, \beta \in \mathcal{A}$
+- Implies closed under (countable) intersection: $\alpha \cap \beta=(\alpha^c \cup \beta^c)^c$
+
+![](images/2021-06-16-11-10-04.png)
+
+## Probability Measure
+
+Requirements for a probability measure:
+
+- For all $\alpha \in \mathcal{A}, 0 \le P(\alpha) \le 1$
+- $P(\emptyset)=0$
+- $P(\Omega)=1$
+- If $\alpha \cap \beta = \emptyset$ then $P(\alpha) \cup \beta=P(\alpha)+P(\beta)$
+
+### Discrete Sample Space
+
+If we assign a probability to each of the discrete outcomes this is the PMF.
+
+![](images/2021-06-16-11-23-22.png)
+
+### Continuous Sample Space
+
+See [this video](https://youtu.be/DqGUwoz4d4M?t=321)
+### Power Set
+
+The set of all subsets of $\Omega$
+
+## Random Variable
+
+![](images/2021-06-16-11-27-20.png)
+
+Here $\Omega$ is all possible outcomes of two six sided dice. One random variable we could define is the sum of the dice (see how it is a function).
+
+![](images/2021-06-16-11-28-18.png)
+
+The way we connect random variables is we think about the pre-image of any subset of $\mathcal{T}$. Here we say that the function $X$ maps from $\Omega$ to $\mathcal{T}$. If there is some subset $S$ which is an element of $\mathcal{T}$ whose probability we want to reason about, then we think about its pre-image in $\Omega$ under the map $X$. That is we look at the subset of $\Omega$ that if you applied $X$ would lead to the set $S$. We denote this as the function $X^{-1}$. So when we are talking about the probability in the set $S$ what we are really talking about is the probability in the pre-image $\Omega$. The pre-image is a member of the event space - that is, it is a measurable set. 
+
+![](images/2021-06-16-11-35-40.png)
+
+# What is a Random Variable
+
+The name is complete bullshit. It is *not* really a variable. It is a function. See [Random Variable](#random-variable)
+
+A random variable is a function associated with a probability space. The function maps the possible outcomes (points in the probability space) to the real numbers (or real vectors).
+
+Two random variables are the same if they are the same function and associated with the same probability space.
