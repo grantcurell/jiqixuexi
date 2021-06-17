@@ -13,8 +13,10 @@
   - [An Example](#an-example)
     - [Standardize](#standardize)
   - [Central Limit Theorem Stated](#central-limit-theorem-stated)
+- [Convergence in a Probability vs Convergence in a Distribution](#convergence-in-a-probability-vs-convergence-in-a-distribution)
 - [Corollary](#corollary)
 - [Fundamental Theorem of Algebra](#fundamental-theorem-of-algebra)
+- [Euclidean Distance](#euclidean-distance)
 - [Gaussian Random Variable](#gaussian-random-variable)
       - [Gaussian Corollary 1:](#gaussian-corollary-1)
       - [Gaussian Corollary 2:](#gaussian-corollary-2)
@@ -30,6 +32,7 @@
 - [Sample](#sample)
 - [Statistics Notation](#statistics-notation)
   - [Lower vs Upper Case Variables](#lower-vs-upper-case-variables)
+- [Types of Probability](#types-of-probability)
 - [Variance](#variance)
   - [Population vs Sample Variance](#population-vs-sample-variance)
 - [What is a Probability Space](#what-is-a-probability-space)
@@ -195,6 +198,10 @@ C.L.T Let $X_1, X_2, ...$ be i.i.d random variables that have a mean and a non-z
 
 This theorem by itself is not useful in computer science because it does not give any information about the rate of the error. Furthermore this rate  could actually depend on $u$ which is problamatic. To add bounds see the Berry-Esseen Theorem.
 
+# Convergence in a Probability vs Convergence in a Distribution
+
+See this post: https://stats.stackexchange.com/a/134732/319741
+
 # Corollary
 
 A proposition inferred immediately from a provide proposition with little or no additional proof. Something that naturally follows.
@@ -202,6 +209,12 @@ A proposition inferred immediately from a provide proposition with little or no 
 # Fundamental Theorem of Algebra
 
 Every polynomial eg. $x^n+ax^n-1+a_n=0$ has $n$ roots if $x \in \mathbb{C}$. The quadratic formula answers $ax^2+bx+c=0$ for $x$. The power, two here, is the number of roots."
+
+# Euclidean Distance
+
+In mathematics, the Euclidean distance between two points in Euclidean space is the length of a line segment between the two points. It can be calculated from the Cartesian coordinates of the points using the Pythagorean theorem, therefore occasionally being called the Pythagorean distance.
+
+![](images/2021-06-16-15-35-23.png)
 
 # Gaussian Random Variable
 
@@ -374,6 +387,10 @@ $n$ - little $n$ indicates the number of samples taken whereas $N$ indicates the
 
 ![](images/2021-06-16-10-31-15.png)
 
+# Types of Probability
+
+Say a doctor is diagnosing a patient and they say there is a 40% chance the patient has the flu. This is a degree of belief rather than a repeated trial of events. The probability regarding the frequency of events is called frequentist probability while the doctor, related to qualitative levels of certainty, is known as Bayesian probability.
+
 # Variance
 
 $var(x)=E[(X-\mu)^2]=\sigma$
@@ -454,6 +471,8 @@ Here $\Omega$ is all possible outcomes of two six sided dice. One random variabl
 The way we connect random variables is we think about the pre-image of any subset of $\mathcal{T}$. Here we say that the function $X$ maps from $\Omega$ to $\mathcal{T}$. If there is some subset $S$ which is an element of $\mathcal{T}$ whose probability we want to reason about, then we think about its pre-image in $\Omega$ under the map $X$. That is we look at the subset of $\Omega$ that if you applied $X$ would lead to the set $S$. We denote this as the function $X^{-1}$. So when we are talking about the probability in the set $S$ what we are really talking about is the probability in the pre-image $\Omega$. The pre-image is a member of the event space - that is, it is a measurable set. 
 
 ![](images/2021-06-16-11-35-40.png)
+
+Omega represents the members of a population. Let w be a member of the population, i.e. let w be in Omega. Then X(w) represents some characteristic of the member w. T represents what kind of possible values X can take. X is drawn from a probability distribution f. One way of looking at f is as a function of a variable of type T. If you are looking at f that way, then little x is just the argument of f.
 
 # What is a Random Variable
 
